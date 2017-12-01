@@ -1,5 +1,19 @@
 #include "Cryptographer.hpp"
-
+/*
+std::string Cryptographer::code(std::string str, int key, std::string alphabet)
+{
+	this->alphabet = alphabet;
+	for(uint i = 0; i < str.length(); ++i)
+	{
+		int index;
+		if((index = findIndex(str[i])) != -1)
+			str[i] = alphabet[(index+key)%alphabet.length()];
+		else
+			str[i] = '_';
+	}
+	return str;
+}
+*/
 std::string Cryptographer::code(std::string str, int key, std::string alphabet)
 {
 	this->alphabet = alphabet;
@@ -31,15 +45,12 @@ int Cryptographer::findIndex(char symbol)
 
 int Cryptographer::calculateCodedIndex(int index, int key)
 {
-	index += key;
 
 	if(key > 0)
-		while(index >= alphabet.length())
-			index -= alphabet.length();
+		index = (index + key) % alphabet.length();
 
 	if(key < 0)
-		while(index < 0)
-			index += alphabet.length();
+		index = (index + (alphabet.length()+key)) % alphabet.length();
 		
 	return index;
 }
