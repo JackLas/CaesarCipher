@@ -1,14 +1,24 @@
 #include "Input.hpp"
 
-std::string Input::getInputStringWithoutSpaces()
+std::string Input::inputString()
 {
-	std::string inputStr;
-	std::getline(std::cin, inputStr);
-	for(auto symbol = inputStr.begin(); symbol != inputStr.end();)
+	myStr.clear();
+	std::getline(std::cin, myStr);
+}
+
+void removeSpaces()
+{
+	for(auto symbol = myStr.begin(); symbol != myStr.end();)
 	{
 		if(*symbol == ' ') //symbol == 'space';
-			symbol = inputStr.erase(symbol);
+			symbol = myStr.erase(symbol);
 		else ++symbol;
 	}
-	return inputStr;
+}
+
+std::string Input::getInputStringWithoutSpaces()
+{
+	inputString();
+	removeSpaces();
+	return myStr;
 }

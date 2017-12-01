@@ -7,8 +7,12 @@
 class Input
 {
 private:
+	std::string myStr;
 public:
+	std::string inputString();
 	std::string getInputStringWithoutSpaces();
+protected:
+	void removeSpaces();
 };
 
 #endif //INPUT_HPP
