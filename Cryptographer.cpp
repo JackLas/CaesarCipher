@@ -1,22 +1,12 @@
 #include "Cryptographer.hpp"
-/*
-std::string Cryptographer::code(std::string str, int key, std::string alphabet)
+
+Cryptographer::Cryptographer(std::string alphabet)
 {
 	this->alphabet = alphabet;
-	for(uint i = 0; i < str.length(); ++i)
-	{
-		int index;
-		if((index = findIndex(str[i])) != -1)
-			str[i] = alphabet[(index+key)%alphabet.length()];
-		else
-			str[i] = '_';
-	}
-	return str;
 }
-*/
-std::string Cryptographer::code(std::string str, int key, std::string alphabet)
+
+std::string Cryptographer::code(std::string str, int key)
 {
-	this->alphabet = alphabet;
 	for(uint i = 0; i < str.length(); ++i)
 	{
 		int index;
@@ -28,9 +18,9 @@ std::string Cryptographer::code(std::string str, int key, std::string alphabet)
 	return str;
 }
 
-std::string Cryptographer::decode(std::string str, int key, std::string alphabet)
+std::string Cryptographer::decode(std::string str, int key)
 {
-	return code(str, -key, alphabet);
+	return code(str, -key);
 }
 
 int Cryptographer::findIndex(char symbol)
@@ -45,7 +35,6 @@ int Cryptographer::findIndex(char symbol)
 
 int Cryptographer::calculateCodedIndex(int index, int key)
 {
-
 	if(key > 0)
 		index = (index + key) % alphabet.length();
 
