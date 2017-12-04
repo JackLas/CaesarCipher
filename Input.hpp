@@ -9,8 +9,10 @@ class Input
 private:
 	std::string myStr;
 public:
-	std::string inputString();
+	void inputString();
 	std::string getInputStringWithoutSpaces();
+	std::string getInputString();
+	int getInputKey();
 protected:
 	void removeSpaces();
 };

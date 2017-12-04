@@ -4,17 +4,15 @@
 int main() //demo
 {
 	Input input;
-	Cryptographer cryptographer;
-
 	std::cout << "Enter string to code: ";
 	std::string str = input.getInputStringWithoutSpaces();
-	int key;
 	std::cout << "Enter key to code: ";
-	std::cin >> key;
+	int key = input.getInputKey();
 
-	str = cryptographer.code(str, key);
+	Cryptographer cryptographer(key);
+	str = cryptographer.code(str);
 	std::cout << "Coded:\t " << str << std::endl;
-	str = cryptographer.decode(str, key);
+	str = cryptographer.decode(str);
 	std::cout << "Decoded: " << str << std::endl;
 	return 0;
 }

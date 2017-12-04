@@ -1,45 +1,49 @@
 #include "Cryptographer.hpp"
 
-Cryptographer::Cryptographer(std::string alphabet)
+Cryptographer::Cryptographer(int key, std::string alphabet):
+myAlphabet(alphabet)
 {
-	this->alphabet = alphabet;
+	myKey = key % alphabet.length();
 }
 
-std::string Cryptographer::code(std::string str, int key)
+std::string Cryptographer::logic(std::string str, bool isToDecode)
 {
 	for(uint i = 0; i < str.length(); ++i)
 	{
-		int index;
-		if((index = findIndex(str[i])) != -1)
-			str[i] = alphabet[calculateCodedIndex(index, key)];
+		int curIndex;
+		if((curIndex = findIndex(str[i])) != -1)
+			str[i] = myAlphabet[calculateNewIndex(curIndex, isToDecode)];
 		else
 			str[i] = '_';
 	}
 	return str;
 }
 
-std::string Cryptographer::decode(std::string str, int key)
-{
-	return code(str, -key);
-}
-
 int Cryptographer::findIndex(char symbol)
 {
-	for(uint i = 0; i < alphabet.length(); ++i)
+	for(uint i = 0; i < myAlphabet.length(); ++i)
 	{
-		if(alphabet[i] == symbol)
+		if(myAlphabet[i] == symbol)
 			return (int)i;
 	}
 	return -1;
 }
 
-int Cryptographer::calculateCodedIndex(int index, int key)
+int Cryptographer::calculateNewIndex(int index, bool isToDecode)
 {
-	if(key > 0)
-		index = (index + key) % alphabet.length();
+	if(isToDecode)
+		index = (index + (myAlphabet.length()-myKey)) % myAlphabet.length();
+	else index = (index + myKey) % myAlphabet.length();
 
-	if(key < 0)
-		index = (index + (alphabet.length()+key)) % alphabet.length();
-		
 	return index;
+}
+
+std::string Cryptographer::code(std::string str)
+{
+	return logic(str, false);
+}
+
+std::string Cryptographer::decode(std::string str)
+{
+	return logic(str, true);
 }
